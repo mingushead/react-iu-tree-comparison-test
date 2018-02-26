@@ -1,0 +1,68 @@
+.container {
+  position: absolute;
+  top: 30%;
+  left: 10px;
+  text-align: center;
+}
+
+.container h2 {
+  font-size: 5rem;
+}
+.node.red {
+  color: #aa8888;
+}
+.node.blue {
+  color: #8888aa;
+}
+.node.bold {
+  font-weight:bold;
+}
+.container a {
+  font-size: 1.4rem;
+}
+.tree {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #21252B;
+}
+
+.m-node .node {
+  display: inline-block;
+  width: 100%;
+  padding: 4px 5px;
+}
+.m-node .node.is-active {
+  background-color: #31363F;
+}
+.m-node .inner {
+  color: #9DA5B4;
+  font-size: 12px;
+  font-family: Menlo;
+}
+.m-node.placeholder {
+  border: 1px dashed #1385e5;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+}
+
+.inspector {
+  margin-left: 400px;
+}
+.inspector pre {
+  font-family: Menlo;
+  font-size: 13px;
+}

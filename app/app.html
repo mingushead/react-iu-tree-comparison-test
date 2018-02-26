@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello Electron React!</title>
+    <script>
+      (function() {
+        if (!process.env.HOT) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = './dist/style.css';
+          // HACK: Writing the script path should be done with webpack
+          document.getElementsByTagName('head')[0].appendChild(link);
+        }
+      }());
+    </script>
+    <style>
+    .container {
+      position: absolute;
+      top: 30%;
+      left: 10px;
+      text-align: center;
+    }
+
+    .container h2 {
+      font-size: 5rem;
+    }
+
+    .container a {
+      font-size: 1.4rem;
+    }
+    .tree {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 300px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: #21252B;
+    }
+
+    .m-node .node {
+      display: inline-block;
+      width: 100%;
+      padding: 4px 5px;
+    }
+    .m-node .node.is-active {
+      background-color: #31363F;
+    }
+    .m-node .inner {
+      color: #9DA5B4;
+      font-size: 12px;
+      font-family: Menlo;
+    }
+    .m-node.placeholder {
+      border: 1px dashed #1385e5;
+    }
+    *, *:before, *:after {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-size: 100%;
+    }
+
+    .inspector {
+      margin-left: 400px;
+    }
+    .inspector pre {
+      font-family: Menlo;
+      font-size: 13px;
+    }
+    .f-no-select {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.m-tree {
+  position: relative;
+  overflow: hidden;
+  .f-no-select;
+}
+
+.m-draggable {
+  position: absolute;
+  opacity: 0.8;
+  .f-no-select;
+}
+
+.m-node {
+  &.placeholder > * {
+    visibility: hidden;
+  }
+
+  &.placeholder {
+    border: 1px dashed #ccc;
+  }
+
+  .inner {
+    position: relative;
+    cursor: pointer;
+    padding-left: 10px;
+  }
+
+  .collapse {
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+  }
+
+  .caret-right:before {
+    content: '\25B8';
+  }
+
+  .caret-down:before {
+    content: '\25BE';
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      {
+        const scripts = [];
+
+        // Dynamically insert the DLL script in development env in the
+        // renderer process
+        if (process.env.NODE_ENV === 'development') {
+          scripts.push('../dll/renderer.dev.dll.js');
+        }
+
+        // Dynamically insert the bundled app script in the renderer process
+        const port = process.env.PORT || 1212;
+        scripts.push(
+          (process.env.HOT)
+            ? 'http://localhost:' + port + '/dist/renderer.dev.js'
+            : './dist/renderer.prod.js'
+        );
+
+        document.write(
+          scripts
+            .map(script => '<script defer src="' + script + '"><\/script>')
+            .join('')
+        );
+      }
+    </script>
+  </body>
+</html>
